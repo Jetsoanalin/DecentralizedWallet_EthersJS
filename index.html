@@ -53,15 +53,26 @@
                             document.getElementById("text").value=walletAddress;
                             resolve();
                         }
-                    },500);
+                    },500);           
                 });
+
+                       
+                            web3ethbal = wallet.provider.getBalance(wallet.provider._web3Provider.selectedAddress);
+                            //  ethbal = await web3ethbal;
+                             const web3bal = ethers.utils.formatEther(await web3ethbal);
+                             document.getElementById("bal").value=web3bal;
+                             console.log(ethbal);
+                          
+                        
                 new ethers.providers.Web3Provider(window.web3.currentProvider);
                 var address = toString(wallet.address);
                 displayText = "Your address is: "+address;
 
                 window.connectedToMetamask = true;
-                window.intervalId = setInterval(() => {
+                window.intervalId = await setInterval(() => {
                     window.wallet.address = wallet.provider._web3Provider.selectedAddress;
+                    const web3bal = ethers.utils.formatEther(ethbal);
+                             document.getElementById("bal").value=web3bal;
                     showNextButton = true;
                 }, 500);
                 window.address = window.wallet.address;
@@ -88,7 +99,9 @@
     <form style="align-content: center; box-align: center;" >
         <label> User Address </label>
            <input type = "text" id="text" size="50" placeholder="Details" readonly>
-           <p class="lead section-heading text-center w-75 mx-auto" style="color:#fff">{displayText}</p>
+
+           <label> User Ethereum Balance </label>
+           <input type = "text" id="bal" size="20" placeholder="Balance" readonly>
      </form>
 </body>
 </html>
